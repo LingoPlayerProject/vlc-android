@@ -138,6 +138,7 @@ android {
 }
 
 dependencies {
+    implementation "org.videolan.android:libvlc-all:$rootProject.ext.libvlcVersion"
     implementation project(':application:vlc-android')
     implementation project(':application:television')
     testImplementation project(':application:television')
