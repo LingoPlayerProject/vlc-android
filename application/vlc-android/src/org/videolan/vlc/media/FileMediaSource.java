@@ -18,7 +18,7 @@ public class FileMediaSource implements IVLCMediaSource {
 
     @Override
     @Nullable
-    public OpendSource open() {
+    public OpenedSource open() {
         Log.d("FileMediaSource", "open " + path);
         RandomAccessFile raf = null;
         boolean returned = false;
@@ -26,18 +26,18 @@ public class FileMediaSource implements IVLCMediaSource {
             raf = new RandomAccessFile(path, "r");
             long length = raf.length();
             RandomAccessFile raff = raf;
-            OpendSource opendSource = new OpendSource() {
+            OpenedSource OpenedSource = new OpenedSource() {
 
                 @Override
                 public long length() {
-                    Log.d("FileMediaSource", String.format("call opendSource length. %s", path));
+                    Log.d("FileMediaSource", String.format("call OpenedSource length. %s", path));
                     return length;
                 }
 
                 @Override
                 public int read(byte[] buf, int len) {
                     try {
-                        Log.d("FileMediaSource", String.format("call opendSource read, len %s, path %s", len, path));
+                        Log.d("FileMediaSource", String.format("call OpenedSource read, len %s, path %s", len, path));
                         int read = raff.read(buf, 0, len);
                         return read == -1 ? 0 : read;
                     } catch (IOException e) {
@@ -49,7 +49,7 @@ public class FileMediaSource implements IVLCMediaSource {
                 @Override
                 public int seek(long offset) {
                     try {
-                        Log.d("FileMediaSource", String.format("call opendSource seek. offset %s, path %s", offset, path));
+                        Log.d("FileMediaSource", String.format("call OpenedSource seek. offset %s, path %s", offset, path));
                         raff.seek(offset);
                         return 0;
                     } catch (IOException e) {
@@ -61,7 +61,7 @@ public class FileMediaSource implements IVLCMediaSource {
                 @Override
                 public void close() {
                     try {
-                        Log.d("FileMediaSource", String.format("call opendSource close. path %s", path));
+                        Log.d("FileMediaSource", String.format("call OpenedSource close. path %s", path));
                         raff.close();
                     } catch (IOException e) {
                     }
@@ -69,7 +69,7 @@ public class FileMediaSource implements IVLCMediaSource {
             };
             returned = true;
             Log.d("FileMediaSource", "open success, len " + length);
-            return opendSource;
+            return OpenedSource;
         } catch (Exception e) {
             Log.e("FileMediaSource", "open", e);
             return null;
