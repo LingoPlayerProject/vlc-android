@@ -20,66 +20,43 @@ public class FileMediaSource implements IVLCMediaSource {
     @Nullable
     public OpenedSource open() {
         Log.d("FileMediaSource", "open " + path);
-        RandomAccessFile raf = null;
-        boolean returned = false;
         try {
-            raf = new RandomAccessFile(path, "r");
-            long length = raf.length();
-            RandomAccessFile raff = raf;
+            RandomAccessFile raf = new RandomAccessFile(path, "r");
             OpenedSource OpenedSource = new OpenedSource() {
 
                 @Override
-                public long length() {
+                public long length() throws IOException {
                     Log.d("FileMediaSource", String.format("call OpenedSource length. %s", path));
-                    return length;
+                    return raf.length();
                 }
 
                 @Override
-                public int read(byte[] buf, int len) {
-                    try {
-                        Log.d("FileMediaSource", String.format("call OpenedSource read, len %s, path %s", len, path));
-                        int read = raff.read(buf, 0, len);
-                        return read == -1 ? 0 : read;
-                    } catch (IOException e) {
-                        Log.e("FileMediaSource", "read", e);
-                        return -1;
-                    }
+                public int read(byte[] buf, int len) throws IOException {
+                    Log.d("FileMediaSource", String.format("call OpenedSource read, len %s, path %s", len, path));
+                    int read = raf.read(buf, 0, len);
+                    return read == -1 ? 0 : read;
                 }
 
                 @Override
-                public int seek(long offset) {
-                    try {
-                        Log.d("FileMediaSource", String.format("call OpenedSource seek. offset %s, path %s", offset, path));
-                        raff.seek(offset);
-                        return 0;
-                    } catch (IOException e) {
-                        Log.e("FileMediaSource", "seek", e);
-                        return -1;
-                    }
+                public void seek(long offset) throws IOException {
+                    Log.d("FileMediaSource", String.format("call OpenedSource seek. offset %s, path %s", offset, path));
+                    raf.seek(offset);
                 }
 
                 @Override
                 public void close() {
                     try {
                         Log.d("FileMediaSource", String.format("call OpenedSource close. path %s", path));
-                        raff.close();
+                        raf.close();
                     } catch (IOException e) {
                     }
                 }
             };
-            returned = true;
-            Log.d("FileMediaSource", "open success, len " + length);
+            Log.d("FileMediaSource", "open success");
             return OpenedSource;
         } catch (Exception e) {
             Log.e("FileMediaSource", "open", e);
             return null;
-        } finally {
-            if (raf != null && !returned) {
-                try {
-                    raf.close();
-                } catch (IOException e) {
-                }
-            }
         }
     }
 }
