@@ -57,8 +57,8 @@ captures/
 
 #gradle
 gradlew.bat
-gradlew
-gradle*/
+# gradlew
+# gradle*/
 .gradle/
 build/
 vlc-android/build/
@@ -72,3 +72,4 @@ libvlc.pc.backup
 libvlcpp.pc
 lib/
 /buildsystem/automation/certificates/
+medialibrary/prefix/
