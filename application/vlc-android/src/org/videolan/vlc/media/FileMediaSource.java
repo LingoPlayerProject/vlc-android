@@ -32,7 +32,7 @@ public class FileMediaSource implements IVLCMediaSource {
 
                 @Override
                 public int read(byte[] buf, int len) throws IOException {
-                    Log.d("FileMediaSource", String.format("call OpenedSource read, len %s, path %s", len, path));
+                    //Log.d("FileMediaSource", String.format("call OpenedSource read, len %s, path %s", len, path));
                     int read = raf.read(buf, 0, len);
                     return read == -1 ? 0 : read;
                 }

@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 android {
+    ndkVersion '21.4.7075529'
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -108,7 +110,7 @@ android {
             }
             enable isReleaseBuild
             reset()
-            include "x86", "x86_64", "armeabi-v7a", "arm64-v8a"
+            include "arm64-v8a"
 //            universalApk !isReleaseBuild
         }
     }

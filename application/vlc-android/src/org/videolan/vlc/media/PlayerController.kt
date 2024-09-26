@@ -111,7 +111,7 @@ class PlayerController(val context: Context) : IVLCVout.Callback, MediaPlayer.Ev
     }
 
     fun setTime(time: Long, fast:Boolean = false) {
-        if (seekable && mediaplayer.hasMedia() && !mediaplayer.isReleased) mediaplayer.setTime(time, fast)
+        if (seekable && mediaplayer.hasMedia() && !mediaplayer.isReleased) mediaplayer.setTime(time, false) // todo revert
     }
 
     fun isPlaying() = playbackState == PlaybackStateCompat.STATE_PLAYING
