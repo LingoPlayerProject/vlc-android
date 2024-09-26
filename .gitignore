@@ -2,6 +2,8 @@
 /vlc/
 /toolchains/
 application/app/src/main/assets/
+/libvlcjni/
+/.vscode/settings.json
 
 #medialibrary
 medialibrary/medialibrary
@@ -62,6 +64,7 @@ build/
 vlc-android/build/
 java-libs/WheelView/build/
 libVLC/build/
+.cxx/
 
 #medialibrary build
 libvlc.pc
