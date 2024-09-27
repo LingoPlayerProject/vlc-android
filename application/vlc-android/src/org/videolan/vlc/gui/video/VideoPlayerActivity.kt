@@ -282,7 +282,6 @@ open class VideoPlayerActivity : AppCompatActivity(), PlaybackService.Callback, 
         override fun onStopTrackingTouch(seekBar: SeekBar) {
             isDragging = false
             overlayDelegate.showOverlay(true)
-            seek(seekBar.progress.toLong(), fromUser = true, fast = false)
         }
 
         override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
