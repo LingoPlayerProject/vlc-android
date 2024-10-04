@@ -26,21 +26,38 @@ public class FileMediaSource implements IDataSource {
 
                 @Override
                 public long length() throws IOException {
-                    Log.d("FileMediaSource", String.format("call OpenedSource length. %s", path));
-                    return raf.length();
+                    try {
+                        long length = raf.length();
+                        Log.d("FileMediaSource", String.format("call OpenedSource length. %s, ret %s", path, length));
+                        return length;
+                    } catch (IOException e) {
+                        Log.e("FileMediaSource", String.format("call OpenedSource length exception. %s", path), e);
+                        throw e;
+                    }
                 }
 
                 @Override
                 public int read(byte[] buf, int len) throws IOException {
-                    //Log.d("FileMediaSource", String.format("call OpenedSource read, len %s, path %s", len, path));
-                    int read = raf.read(buf, 0, len);
-                    return read == -1 ? 0 : read;
+                    try {
+                        int read = raf.read(buf, 0, len);
+                        int ret =  read == -1 ? 0 : read;
+                        Log.d("FileMediaSource", String.format("call OpenedSource read, len %s, path %s, ret %s", len, path, ret));
+                        return ret;
+                    } catch (IOException e) {
+                        Log.e("FileMediaSource", String.format("call OpenedSource read exception. %s", path), e);
+                        throw e;
+                    }
                 }
 
                 @Override
                 public void seek(long offset) throws IOException {
-                    Log.d("FileMediaSource", String.format("call OpenedSource seek. offset %s, path %s", offset, path));
-                    raf.seek(offset);
+                    try {
+                        raf.seek(offset);
+                        Log.d("FileMediaSource", String.format("call OpenedSource seek. offset %s, path %s", offset, path));
+                    } catch (IOException e) {
+                        Log.e("FileMediaSource", String.format("call OpenedSource seek exception. %s", path), e);
+                        throw e;
+                    }
                 }
 
                 @Override
@@ -55,7 +72,7 @@ public class FileMediaSource implements IDataSource {
             Log.d("FileMediaSource", "open success");
             return OpenedSource;
         } catch (Exception e) {
-            Log.e("FileMediaSource", "open", e);
+            Log.e("FileMediaSource", "open exception", e);
             return null;
         }
     }
