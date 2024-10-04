@@ -416,7 +416,7 @@ class PlaylistManager(val service: PlaybackService) : MediaWrapperList.EventList
                 }
             }
             //todo restore position as well when we move to VLC 4.0
-            val media = mediaFactory.getFromVLCMediaSource(VLCInstance.getInstance(service), FileMediaSource(uri.path))
+            val media = mediaFactory.getFromDataSource(VLCInstance.getInstance(service), FileMediaSource(uri.path))
             //fixme workaround to prevent the issue described in https://code.videolan.org/videolan/vlc-android/-/issues/2106
             if (shouldDisableCookieForwarding) {
                 shouldDisableCookieForwarding = false

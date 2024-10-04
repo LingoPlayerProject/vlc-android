@@ -4,12 +4,12 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
-import org.videolan.libvlc.interfaces.IVLCMediaSource;
+import org.videolan.libvlc.interfaces.IDataSource;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
-public class FileMediaSource implements IVLCMediaSource {
+public class FileMediaSource implements IDataSource {
     private final String path;
 
     public FileMediaSource(String path) {
